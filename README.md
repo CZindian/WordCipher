@@ -1,5 +1,15 @@
 # WordCipher
-This repository is university correspondence task output. There are two programs.
+This repository is university correspondence task output.
+The program WordCipherApp encodes and decodes natural language.
 
-The first one encodes and decodes natural language and the second one will break
-a cipher from the first program without knowledge of cipher key.
+
+Encryption:
+    User types a sentence to encrypt and encryption key.
+    The output is encrypted text.
+    
+Decryption:
+    User types encrypted text and encryption key.
+    The output is decrypted text.
+    
+This repository is the first part of the correspondence task.
+The second part is in BreaakCipher respository.
