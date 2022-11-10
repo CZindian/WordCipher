@@ -7,6 +7,7 @@ import cz.osu.word.cipher.app.exceptions.IllegalMessageKeyException;
 import java.util.Scanner;
 
 import static cz.osu.word.cipher.app.utils.Constants.MAX_INT_CHAR_VALUE;
+import static cz.osu.word.cipher.app.utils.TextColors.*;
 import static cz.osu.word.cipher.app.utils.Utils.checkValidity;
 import static cz.osu.word.cipher.app.utils.Utils.getConsoleInput;
 
@@ -23,15 +24,15 @@ public class Encryption {
      */
     public static void run() {
 
-        System.out.println("Zadejte zprávu, kterou chcete utajit:");
-        System.out.println("Volte pouze znaky, které uznává jazyk český nebo slovenký!");
+        System.out.println(ANSI_GREEN + "Zadejte zprávu, kterou chcete utajit:" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Volte pouze znaky, které uznává jazyk český nebo slovenký!" + ANSI_RESET);
         setConsoleInputMsg();
 
-        System.out.println("Zadejte tajný klíč (jeden znak):");
+        System.out.println(ANSI_GREEN + "Zadejte tajný klíč (jeden znak):" + ANSI_GREEN);
         setConsoleInputKey();
 
         encodeMessageByKey();
-        System.out.println("Pozor! Bílé znaky za : taktéž spadají do zašifrovaného textu!");
+        System.out.println(ANSI_YELLOW + "Pozor! Bílé znaky za : taktéž spadají do zašifrovaného textu!" + ANSI_RESET);
         System.out.println("Zašifrovaný text:" + encodedText);
 
         resetAttributes();
@@ -49,8 +50,8 @@ public class Encryption {
             }
 
         } catch (AnyTextToEncryptException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Zadejte zprávu, kterou chcete utajit:");
+            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "Zadejte zprávu, kterou chcete utajit:" + ANSI_YELLOW);
             setConsoleInputMsg();
 
         }
@@ -71,8 +72,8 @@ public class Encryption {
             setConsoleInputKey();
 
         } catch (UnsupportedMessageKeyException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Zadejte tajný klíč z běžné abecedy:");
+            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "Zadejte tajný klíč z běžné abecedy:" + ANSI_RESET);
             setConsoleInputKey();
 
         }

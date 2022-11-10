@@ -4,6 +4,7 @@ import cz.osu.word.cipher.app.exceptions.IllegalConsoleInputException;
 
 import java.util.Scanner;
 
+import static cz.osu.word.cipher.app.utils.TextColors.*;
 import static cz.osu.word.cipher.app.utils.Utils.getConsoleInput;
 
 public class WordCipher {
@@ -14,8 +15,8 @@ public class WordCipher {
      */
     public static void run() {
 
-        System.out.println("Vítejte!");
-        System.out.println("Tato aplikace vám zašifruje nebo dešifruje Vaší tajnou zprávu.");
+        System.out.println(ANSI_GREEN + "Vítejte!" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Tato aplikace vám zašifruje nebo dešifruje Vaší tajnou zprávu." + ANSI_RESET);
 
         listenConsoleInput();
     }
@@ -24,7 +25,7 @@ public class WordCipher {
     private static void listenConsoleInput() {
 
         resetConsoleInput();
-        System.out.println("Pro začátek zvolte 'š' pro šifrování nebo 'd' pro dešifrování zprávy.");
+        System.out.println(ANSI_YELLOW + "Pro začátek zvolte 'š' pro šifrování nebo 'd' pro dešifrování zprávy." + ANSI_RESET);
 
         consoleInput = getConsoleInput(
                 new Scanner(System.in)
@@ -46,8 +47,8 @@ public class WordCipher {
             listenConsoleInputExit();
 
         } catch (IllegalConsoleInputException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Zvolte 'š' pro šifrování nebo 'd' pro dešifrování zprávy.");
+            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "Zvolte 'š' pro šifrování nebo 'd' pro dešifrování zprávy." + ANSI_RESET);
             listenConsoleInput();
 
         }
@@ -56,7 +57,7 @@ public class WordCipher {
 
     private static void listenConsoleInputExit() {
 
-        System.out.println("Chcete program opustit? (a/n)");
+        System.out.println(ANSI_RED + "Chcete program opustit? (a/n)" + ANSI_RED);
         consoleInput = getConsoleInput(
                 new Scanner(System.in)
         );
