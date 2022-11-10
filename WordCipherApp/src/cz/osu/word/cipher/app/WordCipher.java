@@ -13,6 +13,7 @@ public class WordCipher {
      * Main program run method.
      */
     public static void run() {
+
         System.out.println("Vítejte!");
         System.out.println("Tato aplikace vám zašifruje nebo dešifruje Vaší tajnou zprávu.");
 
@@ -21,8 +22,10 @@ public class WordCipher {
 
     //region Util methods
     private static void listenConsoleInput() {
+
         resetConsoleInput();
         System.out.println("Pro začátek zvolte 'š' pro šifrování nebo 'd' pro dešifrování zprávy.");
+
         consoleInput = getConsoleInput(
                 new Scanner(System.in)
         );
@@ -41,10 +44,12 @@ public class WordCipher {
                 default -> throw new IllegalConsoleInputException(consoleInput);
             }
             listenConsoleInputExit();
+
         } catch (IllegalConsoleInputException e) {
             System.out.println(e.getMessage());
             System.out.println("Zvolte 'š' pro šifrování nebo 'd' pro dešifrování zprávy.");
             listenConsoleInput();
+
         }
 
     }
