@@ -1,5 +1,6 @@
 package cz.osu.word.cipher.app.utils;
 
+import cz.osu.word.cipher.app.exceptions.UnsupportedAlphabetCharacterException;
 import cz.osu.word.cipher.app.exceptions.UnsupportedMessageKeyException;
 import cz.osu.word.cipher.app.exceptions.IllegalMessageKeyException;
 
@@ -20,9 +21,49 @@ public class Utils {
         if (input.length() != 1) {
             throw new IllegalMessageKeyException();
         }
-        if ((int) input.charAt(0) > MAX_INT_CHAR_VALUE) {
+/*        if ((int) input.charAt(0) > MAX_INT_CHAR_VALUE) {
             throw new UnsupportedMessageKeyException();
+        }*/
+    }
+
+    public static String getAlphabetLetter(int newCharValue, String[] letters)
+            throws UnsupportedAlphabetCharacterException {
+
+        String ret = null;
+
+        for (int i = 0; i < letters.length; i++) {
+            if (newCharValue == i) {
+                ret = letters[i];
+                break;
+            }
         }
+
+        if (ret == null) {
+            throw new UnsupportedAlphabetCharacterException(newCharValue);
+        }
+
+        return ret;
+
+    }
+
+    public static int getLetterIdx(char c, String[] letters) throws UnsupportedAlphabetCharacterException {
+
+        String stringC = String.valueOf(c);
+        int ret = -1;
+
+        for (int i = 0; i < letters.length; i++) {
+            if (stringC.equals(letters[i])) {
+                ret = i;
+                break;
+            }
+        }
+
+        if (ret == -1) {
+            throw new UnsupportedAlphabetCharacterException(c);
+        }
+
+        return ret;
+
     }
 
 }
