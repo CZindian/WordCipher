@@ -1,17 +1,12 @@
 package cz.osu.word.cipher.app;
 
-import cz.osu.word.cipher.app.exceptions.AnyTextToDecryptException;
-import cz.osu.word.cipher.app.exceptions.AnyTextToEncryptException;
-import cz.osu.word.cipher.app.exceptions.IllegalMessageKeyException;
-import cz.osu.word.cipher.app.exceptions.UnsupportedMessageKeyException;
+import cz.osu.word.cipher.app.exceptions.*;
 
 import java.util.Scanner;
 
-import static cz.osu.word.cipher.app.utils.Constants.MAX_INT_CHAR_VALUE;
-import static cz.osu.word.cipher.app.utils.Constants.MIN_INT_CHAR_VALUE;
+import static cz.osu.word.cipher.app.utils.Constants.*;
 import static cz.osu.word.cipher.app.utils.TextColors.*;
-import static cz.osu.word.cipher.app.utils.Utils.checkValidity;
-import static cz.osu.word.cipher.app.utils.Utils.getConsoleInput;
+import static cz.osu.word.cipher.app.utils.Utils.*;
 
 public class Decryption {
 
@@ -19,6 +14,7 @@ public class Decryption {
     private static String consoleInputMsg;
     private static String consoleInputKey;
     private static String decodedText;
+    private static String[] letters;
     //endregion
 
     /**
@@ -26,6 +22,7 @@ public class Decryption {
      */
     public static void run() {
 
+        setLetters();
         System.out.println(ANSI_GREEN + "Zadejte zprávu, kterou chcete rozšifrovat:" + ANSI_RESET);
         setConsoleInputMsg();
 
@@ -92,10 +89,18 @@ public class Decryption {
     private static void decodeMessageByKey() {
 
         String key = consoleInputKey;
-
         StringBuilder sb = new StringBuilder();
-        mixCharsByKey(consoleInputMsg, key, sb);
-        decodedText = sb.toString();
+
+        try {
+            mixCharsByKey(consoleInputMsg, key, sb);
+            decodedText = sb.toString();
+
+        } catch (UnsupportedAlphabetCharacterException e) {
+            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "Použijte validní klíč." + ANSI_RESET);
+            setConsoleInputMsg();
+
+        }
 
     }
 
@@ -106,17 +111,22 @@ public class Decryption {
      * @param key secret key
      * @param sb  StringBuilder instance to join encrypted characters in
      */
-    private static void mixCharsByKey(String msg, String key, StringBuilder sb) {
+    private static void mixCharsByKey(String msg, String key, StringBuilder sb)
+            throws UnsupportedAlphabetCharacterException {
 
         for (int i = 0; i < msg.length(); i++) {
 
-            int newCharValue = (int) msg.charAt(i) - (int) key.charAt(0);
-            if (newCharValue < MIN_INT_CHAR_VALUE) {
+            int newCharValue = getLetterIdx(msg.charAt(i), letters) - getLetterIdx(key.charAt(0), letters);
+            if (newCharValue <= MIN_INT_CHAR_VALUE) {
                 newCharValue = newCharValue + MAX_INT_CHAR_VALUE;
             }
 
+            if (newCharValue >= MAX_INT_CHAR_VALUE) {
+                newCharValue = newCharValue - MAX_INT_CHAR_VALUE;
+            }
+
             key = String.valueOf(msg.charAt(i));
-            sb.append((char) newCharValue);
+            sb.append(getAlphabetLetter(newCharValue, letters));
 
         }
 
@@ -131,6 +141,15 @@ public class Decryption {
         consoleInputKey = null;
         decodedText = null;
 
+    }
+
+    /**
+     * Set letters -> array of alphabet.
+     */
+    private static void setLetters() {
+        if (letters == null) {
+            letters = getAlphabetLetters();
+        }
     }
 
 }
