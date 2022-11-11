@@ -54,7 +54,7 @@ public class Encryption {
 
         } catch (AnyTextToEncryptException e) {
             System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
-            System.out.println(ANSI_YELLOW + "Zadejte zprávu, kterou chcete utajit:" + ANSI_YELLOW);
+            System.out.println(ANSI_GREEN + "Zadejte zprávu, kterou chcete utajit:" + ANSI_YELLOW);
             setConsoleInputMsg();
 
         }

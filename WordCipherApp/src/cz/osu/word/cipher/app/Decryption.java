@@ -101,9 +101,10 @@ public class Decryption {
 
     /**
      * Decrypts message by key against "auto key from encrypted message" cipher rules.
+     *
      * @param msg encrypted message
      * @param key secret key
-     * @param sb StringBuilder instance to join encrypted characters in
+     * @param sb  StringBuilder instance to join encrypted characters in
      */
     private static void mixCharsByKey(String msg, String key, StringBuilder sb) {
 
