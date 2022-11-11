@@ -32,13 +32,16 @@ public class Encryption {
         setConsoleInputKey();
 
         encodeMessageByKey();
-        System.out.println(ANSI_YELLOW + "Pozor! Bílé znaky za : taktéž spadají do zašifrovaného textu!" + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Pozor! Bílé znaky za ':' taktéž spadají do zašifrovaného textu!" + ANSI_RESET);
         System.out.println("Zašifrovaný text:" + encodedText);
 
         resetAttributes();
 
     }
 
+    /**
+     * Loads user message to encrypt.
+     */
     private static void setConsoleInputMsg() {
 
         try {
@@ -51,13 +54,16 @@ public class Encryption {
 
         } catch (AnyTextToEncryptException e) {
             System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
-            System.out.println(ANSI_YELLOW + "Zadejte zprávu, kterou chcete utajit:" + ANSI_YELLOW);
+            System.out.println(ANSI_GREEN + "Zadejte zprávu, kterou chcete utajit:" + ANSI_YELLOW);
             setConsoleInputMsg();
 
         }
 
     }
 
+    /**
+     * Loads user secret key.
+     */
     private static void setConsoleInputKey() {
 
         try {
@@ -67,8 +73,8 @@ public class Encryption {
             checkValidity(consoleInputKey);
 
         } catch (IllegalMessageKeyException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Zadejte tajný klíč (jeden znak):");
+            System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
+            System.out.println(ANSI_GREEN+"Zadejte tajný klíč (jeden znak):"+ANSI_RESET);
             setConsoleInputKey();
 
         } catch (UnsupportedMessageKeyException e) {
@@ -80,6 +86,9 @@ public class Encryption {
 
     }
 
+    /**
+     * Encodes message by loaded key.
+     */
     private static void encodeMessageByKey() {
 
         String key = consoleInputKey;
@@ -90,6 +99,12 @@ public class Encryption {
 
     }
 
+    /**
+     * Encrypts message by key against "auto key from encrypted message" cipher rules.
+     * @param msg encrypted message
+     * @param key secret key
+     * @param sb StringBuilder instance to join encrypted characters in
+     */
     private static void mixCharsByKey(String msg, String key, StringBuilder sb) {
 
         for (int i = 0; i < msg.length(); i++) {
@@ -107,7 +122,7 @@ public class Encryption {
     }
 
     /**
-     * Resets class attributes.
+     * Resets class attributes, when they are no longer needed.
      */
     private static void resetAttributes() {
 

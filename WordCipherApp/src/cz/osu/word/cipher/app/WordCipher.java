@@ -7,7 +7,11 @@ import java.util.Scanner;
 import static cz.osu.word.cipher.app.utils.TextColors.*;
 import static cz.osu.word.cipher.app.utils.Utils.getConsoleInput;
 
+/**
+ * Main branch to choose encryption or decryption.
+ */
 public class WordCipher {
+
     private static String consoleInput;
 
     /**

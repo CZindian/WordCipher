@@ -1,5 +1,6 @@
 package cz.osu.word.cipher.app;
 
+import cz.osu.word.cipher.app.exceptions.AnyTextToDecryptException;
 import cz.osu.word.cipher.app.exceptions.AnyTextToEncryptException;
 import cz.osu.word.cipher.app.exceptions.IllegalMessageKeyException;
 import cz.osu.word.cipher.app.exceptions.UnsupportedMessageKeyException;
@@ -21,7 +22,7 @@ public class Decryption {
     //endregion
 
     /**
-     * Main encryption method.
+     * Main decryption method.
      */
     public static void run() {
 
@@ -38,6 +39,9 @@ public class Decryption {
 
     }
 
+    /**
+     * Loads user message to decrypt.
+     */
     private static void setConsoleInputMsg() {
 
         try {
@@ -45,18 +49,21 @@ public class Decryption {
                     new Scanner(System.in)
             );
             if (consoleInputMsg.length() == 0) {
-                throw new AnyTextToEncryptException();
+                throw new AnyTextToDecryptException();
             }
 
-        } catch (AnyTextToEncryptException e) {
+        } catch (AnyTextToDecryptException e) {
             System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
-            System.out.println(ANSI_YELLOW + "Zadejte zprávu, kterou chcete rozšifrovat:" + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "Zadejte zprávu, kterou chcete rozšifrovat:" + ANSI_RESET);
             setConsoleInputMsg();
 
         }
 
     }
 
+    /**
+     * Loads user secret key.
+     */
     private static void setConsoleInputKey() {
 
         try {
@@ -79,6 +86,9 @@ public class Decryption {
 
     }
 
+    /**
+     * Decodes message by loaded key.
+     */
     private static void decodeMessageByKey() {
 
         String key = consoleInputKey;
@@ -89,6 +99,13 @@ public class Decryption {
 
     }
 
+    /**
+     * Decrypts message by key against "auto key from encrypted message" cipher rules.
+     *
+     * @param msg encrypted message
+     * @param key secret key
+     * @param sb  StringBuilder instance to join encrypted characters in
+     */
     private static void mixCharsByKey(String msg, String key, StringBuilder sb) {
 
         for (int i = 0; i < msg.length(); i++) {
@@ -106,7 +123,7 @@ public class Decryption {
     }
 
     /**
-     * Resets class attributes.
+     * Resets class attributes, when they are no longer needed.
      */
     private static void resetAttributes() {
 
