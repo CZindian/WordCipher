@@ -21,11 +21,14 @@ public class Utils {
         if (input.length() != 1) {
             throw new IllegalMessageKeyException();
         }
-/*        if ((int) input.charAt(0) > MAX_INT_CHAR_VALUE) {
-            throw new UnsupportedMessageKeyException();
-        }*/
     }
 
+    /**
+     * @param newCharValue index of character from supported alphabet array
+     * @param letters list of supported alphabet characters
+     * @return current letter from list of supported alphabet characters
+     * @throws UnsupportedAlphabetCharacterException is thrown, when there is character, which is not supported
+     */
     public static String getAlphabetLetter(int newCharValue, String[] letters)
             throws UnsupportedAlphabetCharacterException {
 
@@ -46,6 +49,12 @@ public class Utils {
 
     }
 
+    /**
+     * @param c single character
+     * @param letters list of supported alphabet characters
+     * @return current index of character from list of supported alphabet characters
+     * @throws UnsupportedAlphabetCharacterException is thrown, when there is character, which is not supported
+     */
     public static int getLetterIdx(char c, String[] letters) throws UnsupportedAlphabetCharacterException {
 
         String stringC = String.valueOf(c);

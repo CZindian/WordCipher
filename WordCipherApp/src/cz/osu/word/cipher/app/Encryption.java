@@ -27,8 +27,7 @@ public class Encryption {
      */
     public static void run() {
 
-        //TODO
-        letters = getAlphabetLetters();
+        setLetters();
         System.out.println(ANSI_GREEN + "Zadejte zprávu, kterou chcete utajit:" + ANSI_RESET);
         System.out.println(ANSI_GREEN + "Volte pouze znaky, které uznává jazyk český nebo slovenký!" + ANSI_RESET);
         setConsoleInputMsg();
@@ -144,6 +143,16 @@ public class Encryption {
         consoleInputMsg = null;
         consoleInputKey = null;
         encodedText = null;
+
+    }
+
+    /**
+     * Set letters -> array of alphabet.
+     */
+    private static void setLetters() {
+        if (letters == null){
+            letters = getAlphabetLetters();
+        }
 
     }
 

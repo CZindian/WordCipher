@@ -22,8 +22,7 @@ public class Decryption {
      */
     public static void run() {
 
-        //TODO
-        letters = getAlphabetLetters();
+        setLetters();
         System.out.println(ANSI_GREEN + "Zadejte zprávu, kterou chcete rozšifrovat:" + ANSI_RESET);
         setConsoleInputMsg();
 
@@ -142,6 +141,15 @@ public class Decryption {
         consoleInputKey = null;
         decodedText = null;
 
+    }
+
+    /**
+     * Set letters -> array of alphabet.
+     */
+    private static void setLetters() {
+        if (letters == null) {
+            letters = getAlphabetLetters();
+        }
     }
 
 }
