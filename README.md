@@ -1,7 +1,7 @@
 # WordCipher
 This repository is university correspondence task output.
 The program WordCipherApp encodes and decodes natural language.
-
+The inside of the program WordCipherApp is based on the autokey cipher.
 
 Encryption:
     User types a sentence to encrypt and encryption key.
